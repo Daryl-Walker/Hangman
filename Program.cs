@@ -5,7 +5,7 @@ namespace Hangman
 {
     class Program
     {
-        static string userName;
+        public static string userName;
         private static List<char> guessCount = new List<char>();
         static string correctWord = "hangman";
         private static char guess;
@@ -13,7 +13,6 @@ namespace Hangman
         static List<char> incorrectGuesses = new List<char>();
         private static char wrongGuess;
         private static string input;
-
         static void Main(string[] args)
         {
             StartGame();
@@ -28,6 +27,7 @@ namespace Hangman
                 correctGuesses[i] = '-';
             }
             AskForUsersName();
+            
         }
 
         static void AskForUsersName()
@@ -43,6 +43,7 @@ namespace Hangman
 
         private static void PlayGame()
         {
+            Player player1 = new Player(userName);
             do
             {
                 Console.Clear();
@@ -66,6 +67,7 @@ namespace Hangman
                 if (guessedLetter == correctWord[i])
                 {
                     correctGuesses[i] = guessedLetter;
+                    Player.score++;
                 }
             }
         }
@@ -96,6 +98,24 @@ namespace Hangman
             Console.WriteLine("Game over...");
             Console.WriteLine($"Thanks for playing {userName}!");
             Console.WriteLine($"Guess count: {incorrectGuesses.Count}");
+            Console.WriteLine($"Your score: {Player.score}");
+            PlayAgain();
+        }
+
+        private static void PlayAgain()
+        {
+            bool Y = true;
+            string rePlay;
+            do
+            {
+                Console.WriteLine("Play again?  Y/N");
+                rePlay = Console.ReadLine();
+                if (Y)
+                {
+                    Console.Clear();
+                    PlayGame();
+                }
+            } while (rePlay.Length != 1);
         }
     }
 }
