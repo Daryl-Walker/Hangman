@@ -12,7 +12,18 @@ namespace Hangman
         public static List<char> incorrectGuesses = new List<char>();
         public static string input;
         public static List<char> guessCount = new List<char>();
-        static Player player;
+        public static Player player;
+
+        public static void StartGame()
+        {
+            Game.correctGuesses = new char[Game.correctWord.Length];
+            for (int i = 0; i < Game.correctWord.Length; i++)
+            {
+                Game.correctGuesses[i] = '-';
+            }
+            Player.AskForUsersName();
+        }
+
         public static void PlayGame()
         {
             do
@@ -29,6 +40,7 @@ namespace Hangman
 
             } while (correctWord != new string(correctGuesses));
             Console.WriteLine(correctWord);
+            EndGame();
         }
 
         private static void CheckLetter(char guessedLetter)
@@ -67,27 +79,26 @@ namespace Hangman
         private static void EndGame()
         {
             Console.WriteLine("Game over...");
-            Console.WriteLine($"Thanks for playing {player.userName}!");
+            Console.WriteLine($"Thanks for playing {Player.userName}!");
             Console.WriteLine($"Guess count: {incorrectGuesses.Count}");
             Console.WriteLine($"Your score: {Player.score}");
-            PlayAgain();
+            //PlayAgain();
         }
 
-        private static void PlayAgain()
-        {
-            bool Y = true;
-            string rePlay;
-            Console.Clear();
-            do
-            {
-                Console.WriteLine("Play again?  Y/N");
-                rePlay = Console.ReadLine();
-                if (Y)
-                {
-                    Console.Clear();
-                    PlayGame();
-                }
-            } while (rePlay.Length != 1);
-        }
+        //private static void PlayAgain()
+        //{
+        //    bool Y = true;
+        //    string rePlay;
+        //    do
+        //    {
+        //        Console.WriteLine("Play again?  Y/N");
+        //        rePlay = Console.ReadLine();
+        //        if (Y = rePlay)
+        //        {
+        //            Console.Clear();
+        //            Game.StartGame();
+        //        }
+        //    } while (rePlay.Length != 1);
+        //}
     }
 }
