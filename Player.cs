@@ -6,12 +6,13 @@ namespace Hangman
 {
     public class Player
     {
-        public string name;
+        public string userName;
         public static int score;
+        public static char guess;
 
         public Player(string name)
         {
-            this.name = name;
+            userName = name;
         }
 
 

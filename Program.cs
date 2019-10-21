@@ -5,117 +5,34 @@ namespace Hangman
 {
     class Program
     {
-        public static string userName;
-        private static List<char> guessCount = new List<char>();
-        static string correctWord = "hangman";
-        private static char guess;
-        static char[] correctGuesses;
-        static List<char> incorrectGuesses = new List<char>();
-        private static char wrongGuess;
-        private static string input;
+       
+        public Game game;
+        static Player player;
+
         static void Main(string[] args)
         {
             StartGame();
-            PlayGame();
-            EndGame();
+            Game.PlayGame();
         }
         private static void StartGame()
         {
-            correctGuesses = new char[correctWord.Length];
-            for (int i = 0; i < correctWord.Length; i++)
+            Game.correctGuesses = new char[Game.correctWord.Length];
+            for (int i = 0; i < Game.correctWord.Length; i++)
             {
-                correctGuesses[i] = '-';
+                Game.correctGuesses[i] = '-';
             }
             AskForUsersName();
-            
         }
 
         static void AskForUsersName()
         {
-            Console.WriteLine("What is your name? (must be at least 2 characters)");
-            userName = Console.ReadLine();
-
-            if (userName.Length < 2)
-            {
-                AskForUsersName();
-            }
-        }
-
-        private static void PlayGame()
-        {
-            Player player1 = new Player(userName);
             do
             {
-                Console.Clear();
-                DisplayMaskedWord();
-                char guessedLetter = AskForLetter();
-                CheckLetter(guessedLetter);
-                if (!correctWord.Contains(guessedLetter))
-                {
-                    incorrectGuesses.Add(guessedLetter);
-                }
-                Console.Clear();
 
-            } while (correctWord != new string(correctGuesses));
-            Console.WriteLine(correctWord);
-        }
+                Console.WriteLine("What is your name? (must be at least 2 characters)");
+                player.userName = Console.ReadLine();
 
-        private static void CheckLetter(char guessedLetter)
-        {
-            for (int i = 0; i < correctWord.Length; i++)
-            {
-                if (guessedLetter == correctWord[i])
-                {
-                    correctGuesses[i] = guessedLetter;
-                    Player.score++;
-                }
-            }
-        }
-
-        static void DisplayMaskedWord()
-        {
-            foreach (char item in correctGuesses)
-            {
-                Console.Write(item);
-            }
-            Console.WriteLine();
-        }
-
-        public static char AskForLetter()
-        {
-            do
-            {
-                Console.WriteLine("Enter a Letter:");
-                input = Console.ReadLine();
-            } while (input.Length != 1);
-
-            guess = input[0];
-            return guess;
-        }
-
-        private static void EndGame()
-        {
-            Console.WriteLine("Game over...");
-            Console.WriteLine($"Thanks for playing {userName}!");
-            Console.WriteLine($"Guess count: {incorrectGuesses.Count}");
-            Console.WriteLine($"Your score: {Player.score}");
-            PlayAgain();
-        }
-
-        private static void PlayAgain()
-        {
-            bool Y = true;
-            string rePlay;
-            do
-            {
-                Console.WriteLine("Play again?  Y/N");
-                rePlay = Console.ReadLine();
-                if (Y)
-                {
-                    Console.Clear();
-                    PlayGame();
-                }
-            } while (rePlay.Length != 1);
+            } while (player.userName.Length < 2);
         }
     }
 }
