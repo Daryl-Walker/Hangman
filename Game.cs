@@ -7,23 +7,29 @@ namespace Hangman
 
     public class Game
     {
-        public static string correctWord = "hangman";
-        public static char[] correctGuesses;
-        public static List<char> incorrectGuesses = new List<char>();
-        public static string input;
-        public static List<char> guessCount = new List<char>();
-        public static Player player;
+        private static string correctWord = "hangman";
+        private static char[] correctGuesses;
+        private static List<char> incorrectGuesses = new List<char>();
+        private static string input;
+        private static List<char> guessCount = new List<char>();
+        private static Player player;
+
+        public static string CorrectWord { get => correctWord; set => correctWord = value; }
+        public static char[] CorrectGuesses { get => correctGuesses; set => correctGuesses = value; }
+        public static List<char> IncorrectGuesses { get => incorrectGuesses; set => incorrectGuesses = value; }
+        public static string Input { get => input; set => input = value; }
+        public static List<char> GuessCount { get => guessCount; set => guessCount = value; }
+        public static Player Player { get => player; set => player = value; }
 
         public static void StartGame()
         {
-            Game.correctGuesses = new char[Game.correctWord.Length];
-            for (int i = 0; i < Game.correctWord.Length; i++)
+            Game.CorrectGuesses = new char[Game.CorrectWord.Length];
+            for (int i = 0; i < Game.CorrectWord.Length; i++)
             {
-                Game.correctGuesses[i] = '-';
+                Game.CorrectGuesses[i] = '-';
             }
             Player.AskForUsersName();
         }
-
         public static void PlayGame()
         {
             do
@@ -32,32 +38,32 @@ namespace Hangman
                 DisplayMaskedWord();
                 char guessedLetter = AskForLetter();
                 CheckLetter(guessedLetter);
-                if (!correctWord.Contains(guessedLetter))
+                if (!CorrectWord.Contains(guessedLetter))
                 {
-                    incorrectGuesses.Add(guessedLetter);
+                    IncorrectGuesses.Add(guessedLetter);
                 }
                 Console.Clear();
 
-            } while (correctWord != new string(correctGuesses));
-            Console.WriteLine(correctWord);
+            } while (CorrectWord != new string(CorrectGuesses));
+            Console.WriteLine(CorrectWord);
             EndGame();
         }
 
         private static void CheckLetter(char guessedLetter)
         {
-            for (int i = 0; i < correctWord.Length; i++)
+            for (int i = 0; i < CorrectWord.Length; i++)
             {
-                if (guessedLetter == correctWord[i])
+                if (guessedLetter == CorrectWord[i])
                 {
-                    correctGuesses[i] = guessedLetter;
-                    Player.score++;
+                    CorrectGuesses[i] = guessedLetter;
+                    Player.Score++;
                 }
             }
         }
 
         static void DisplayMaskedWord()
         {
-            foreach (char item in correctGuesses)
+            foreach (char item in CorrectGuesses)
             {
                 Console.Write(item);
             }
@@ -69,19 +75,19 @@ namespace Hangman
             do
             {
                 Console.WriteLine("Enter a Letter:");
-                input = Console.ReadLine();
-            } while (input.Length != 1);
+                Input = Console.ReadLine();
+            } while (Input.Length != 1);
 
-            Player.guess = input[0];
-            return Player.guess;
+            player.Guess = Input[0];
+            return player.Guess;
         }
 
         private static void EndGame()
         {
             Console.WriteLine("Game over...");
-            Console.WriteLine($"Thanks for playing {Player.userName}!");
-            Console.WriteLine($"Guess count: {incorrectGuesses.Count}");
-            Console.WriteLine($"Your score: {Player.score}");
+            Console.WriteLine($"Thanks for playing {Player.UserName}!");
+            Console.WriteLine($"Guess count: {IncorrectGuesses.Count}");
+            Console.WriteLine($"Your score: {Player.Score}");
             //PlayAgain();
         }
 
