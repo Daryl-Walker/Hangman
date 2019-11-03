@@ -13,19 +13,19 @@ namespace Hangman
         public static int Score { get ; set ; }
 
         //public string UserName { get => userName; set => userName = value; }
-        public string UserName { get ; set; }
+        public static string UserName { get ; set ; }
         public static char Guess { get; set; }
 
         public static string AskForUsersName()
         {
-            Player player = new Player();
+           // Player player = new Player();
             do
             {
                 Console.WriteLine("What is your name? (must be at least 2 characters)");
-                player.userName = Console.ReadLine();
-            } while (player.userName.Length < 2);
+                Player.UserName = Console.ReadLine();
+            } while (Player.UserName.Length < 2);
 
-            return player.userName;
+            return Player.UserName;
         }
 
     }

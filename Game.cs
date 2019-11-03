@@ -89,8 +89,9 @@ namespace Hangman
         {
             Console.WriteLine("Game over...");
             Console.WriteLine($"Thanks for playing {Player.UserName}!");
-            Console.WriteLine($"Guess count: {IncorrectGuesses.Count}");
+            Console.WriteLine($"Wrong guesses: {IncorrectGuesses.Count}");
             Console.WriteLine($"Your score: {Player.Score}");
+            Console.ReadLine();
             //PlayAgain();
         }
 
