@@ -5,9 +5,9 @@ namespace Hangman
 {
     class Program
     {
-       
-        public Game game;
-        public Player player;
+
+        // public Game Game;
+        //  public Player player;
 
         static void Main(string[] args)
         {

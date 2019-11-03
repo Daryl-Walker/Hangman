@@ -7,11 +7,14 @@ namespace Hangman
     public class Player
     {
         private string userName;
+        // private int score;
 
-        public int Score { get; set; }
+        //   public static int Score { get => Score; set => Score = 0; }
+        public static int Score { get ; set ; }
 
-        public string UserName { get => userName; set => userName = value; }
-        public char Guess { get; set; }
+        //public string UserName { get => userName; set => userName = value; }
+        public string UserName { get ; set; }
+        public static char Guess { get; set; }
 
         public static string AskForUsersName()
         {

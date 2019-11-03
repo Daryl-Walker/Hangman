@@ -23,7 +23,7 @@ namespace Hangman
 
         public static void StartGame()
         {
-            Game.CorrectGuesses = new char[Game.CorrectWord.Length];
+            CorrectGuesses = new char[Game.CorrectWord.Length];
             for (int i = 0; i < Game.CorrectWord.Length; i++)
             {
                 Game.CorrectGuesses[i] = '-';
@@ -46,6 +46,10 @@ namespace Hangman
 
             } while (CorrectWord != new string(CorrectGuesses));
             Console.WriteLine(CorrectWord);
+            foreach (char guessedLetter in CorrectGuesses)
+            {
+                Player.Score += 2;
+            }
             EndGame();
         }
 
@@ -56,7 +60,6 @@ namespace Hangman
                 if (guessedLetter == CorrectWord[i])
                 {
                     CorrectGuesses[i] = guessedLetter;
-                    Player.Score++;
                 }
             }
         }
@@ -78,8 +81,8 @@ namespace Hangman
                 Input = Console.ReadLine();
             } while (Input.Length != 1);
 
-            player.Guess = Input[0];
-            return player.Guess;
+            Player.Guess = Input[0];
+            return Player.Guess;
         }
 
         private static void EndGame()
