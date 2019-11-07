@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 
 namespace Hangman
 {
 
     public class Game
     {
-        private static string correctWord = "hangman";
+        private static string correctWord;
         private static char[] correctGuesses;
         private static List<char> incorrectGuesses = new List<char>();
         private static string input;
@@ -20,9 +21,23 @@ namespace Hangman
         public static string Input { get => input; set => input = value; }
         public static List<char> GuessCount { get => guessCount; set => guessCount = value; }
         public static Player Player { get => player; set => player = value; }
+        public static string[] alternateWords = new string[] { "error", "exception", "alternate" };
 
         public static void StartGame()
         {
+            string filePath = @"C:\Users\daryl\Desktop\Programs\Words";
+            File.WriteAllText(filePath, $"hangman{Environment.NewLine}application{Environment.NewLine}program{Environment.NewLine}football");
+            try
+            { 
+                var words = File.ReadAllLines(filePath);
+                Random word = new Random();
+                correctWord = words[word.Next(0, words.Length)];
+            }
+            catch
+            {
+                Random word = new Random();
+                correctWord = alternateWords[word.Next(0, alternateWords.Length)];
+            }
             CorrectGuesses = new char[Game.CorrectWord.Length];
             for (int i = 0; i < Game.CorrectWord.Length; i++)
             {

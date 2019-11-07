@@ -6,7 +6,7 @@ namespace Hangman
 {
     public class Player
     {
-        private string userName;
+        //private string userName;
         // private int score;
 
         //   public static int Score { get => Score; set => Score = 0; }
